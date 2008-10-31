@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="redturtle.sendto_extension">
+
+  <genericsetup:registerProfile
+      name="default"
+      title="Sendto Extension"
+      directory="profiles/default"
+      description='Extension profile for the "Sendto Extension" Plone theme.'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

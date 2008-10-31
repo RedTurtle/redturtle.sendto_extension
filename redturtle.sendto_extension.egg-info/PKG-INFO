@@ -1,0 +1,27 @@
+Metadata-Version: 1.0
+Name: redturtle.sendto-extension
+Version: 1.0dev
+Summary: Estensione del form di invio di una mail
+Home-page: http://svn.plone.org/svn/collective/
+Author: Redturtle Technology
+Author-email: info@redturtle.net
+License: GPL
+Description: Introduction
+        ============
+        
+        
+        
+        Changelog
+        =========
+        
+        1.0 - Unreleased
+        ----------------
+        
+        * Initial release
+        
+        
+Keywords: web zope plone theme
+Platform: UNKNOWN
+Classifier: Framework :: Plone
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
