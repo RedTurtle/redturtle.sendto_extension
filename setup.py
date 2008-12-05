@@ -5,7 +5,7 @@ version = '1.0'
 
 setup(name='redturtle.sendto_extension',
       version=version,
-      description="Estensione del form di invio di una mail",
+      description="Extension for the mail_to form od Plone",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -14,10 +14,10 @@ setup(name='redturtle.sendto_extension',
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='web zope plone theme',
+      keywords='plone semdto mail users groups',
       author='Redturtle Technology',
       author_email='info@redturtle.net',
-      url='http://svn.plone.org/svn/collective/',
+      url='https://code.redturtle.it/svn/redturtle/redturtle.sendto_extension/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['redturtle'],
