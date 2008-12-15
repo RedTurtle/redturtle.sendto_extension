@@ -5,9 +5,9 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="Sendto Extension"
+      title="SendTo Extension"
       directory="profiles/default"
-      description='Extension profile for the "Sendto Extension" Plone theme.'
+      description='An enanche SendTo feature on your Plone portal'
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
