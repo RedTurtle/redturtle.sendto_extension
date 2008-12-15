@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.1.0
+-----
+
+ * Fixed some issues with old portal_status_message approach not working on Plone3.
+ * Mail to multiple recipients are now a single mail with users in CC.
+ * Added the BCC feature.
+
 1.0.0
 -----
 

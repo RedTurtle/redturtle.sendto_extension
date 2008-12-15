@@ -327,6 +327,11 @@
             </textarea>
           </div>
 
+		  <input type="checkbox" id="bcc" name="bcc" /><label for="bcc">Usa BCC</label>
+          <div class="formHelp">
+              Invia la mail inserendo gli utenti nella sezione BCC.
+          </div>
+
           <div class="formControls">
             <input class="context"
                    tabindex=""

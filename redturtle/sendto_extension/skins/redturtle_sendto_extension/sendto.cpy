@@ -39,6 +39,15 @@ def getInnerMails(group):
             retMail.append(email)
    return retMail
 
+def unique(lst):
+    """Silly function for obtain unique value in the list.
+    This is needed only because the set() isn't available on python scripts
+    """
+    dc = {}
+    for x in lst:
+        dc[x]=x
+    return dc.keys()
+
 if not mtool.checkPermission(AllowSendto, context):
     return state.set(
             status='failure',
@@ -60,7 +69,7 @@ if not show:
 context_state = context.restrictedTraverse("@@plone_context_state")
 url = context_state.view_url()
 
-theMailStrings = [x.strip() for x in REQUEST.send_to_address.split()]
+theMailStrings = [x.strip() for x in REQUEST.get('send_to_address').split(',')]
 host = context.MailHost
 template = getattr(context, 'sendto_template')
 encoding = context.portal_properties.site_properties.getProperty('default_charset', "UTF-8")
@@ -105,20 +114,25 @@ variables = {'send_from_address' : REQUEST.send_from_address,
 
 
 try:
-    #plone_utils.sendto( **variables )
-    #host.secureSend(message, theMailStrings, REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
-    for mail in theMailStrings:
-        host.secureSend(message, mail, REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
-    #pass
+    if not REQUEST.get('bcc',None):
+        host.secureSend(message, unique(theMailStrings),
+                        REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
+    else:
+        host.secureSend(message, None, REQUEST.send_from_address,
+                        subject=pretty_title_or_id(context), charset=encoding, mbcc=unique(theMailStrings))        
+#    for mail in theMailStrings:
+#        host.secureSend(message, mail, REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
 except ConflictError:
     raise
 except: #XXX To many things could possibly go wrong. So we catch all.
     exception = context.plone_utils.exceptionString()
     message = context.translate("Unable to send mail: ${exception}",
                                 {'exception': exception})
-    return state.set(status='failure', portal_status_message=message)
+    plone_utils.addPortalMessage(message, type="error")
+    return state.set(status='failure')
 
 tmsg='Sent page %s to %s' % (url, REQUEST.send_to_address)
 transaction_note(tmsg)
 
-return state.set(portal_status_message='Mail sent.')
+plone_utils.addPortalMessage("Mail sent")
+return state

@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0'
+version = '1.1.0'
 
 setup(name='redturtle.sendto_extension',
       version=version,
-      description="Extension for the mail_to form od Plone",
+      description="Extension for the mail_to form on Plone",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
@@ -14,7 +14,7 @@ setup(name='redturtle.sendto_extension',
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='plone semdto mail users groups',
+      keywords='plone sendto mail users groups',
       author='Redturtle Technology',
       author_email='info@redturtle.net',
       url='https://code.redturtle.it/svn/redturtle/redturtle.sendto_extension/',
@@ -25,7 +25,6 @@ setup(name='redturtle.sendto_extension',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
       ],
       entry_points="""
       # -*- Entry points: -*-
