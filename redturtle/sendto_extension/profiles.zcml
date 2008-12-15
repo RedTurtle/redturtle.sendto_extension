@@ -7,7 +7,7 @@
       name="default"
       title="SendTo Extension"
       directory="profiles/default"
-      description='An enanche SendTo feature on your Plone portal'
+      description='An enhanced SendTo feature on your Plone portal'
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
