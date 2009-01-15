@@ -12,9 +12,9 @@
   <body>
 
     <div metal:fill-slot="main"
-         tal:define="errors options/state/getErrors;
-		     Batch python:modules['Products.CMFPlone'].Batch;
-			 gtool nocall:context/portal_groups;
+         tal:define="sendto_view nocall:context/@@sendto;
+		             errors options/state/getErrors;
+		             Batch python:modules['Products.CMFPlone'].Batch;
                      b_start request/b_start | python:0;
                      b_size request/b_size | python:200;
                      searchstring_user request/searchstring_user | nothing;
@@ -24,7 +24,7 @@
                      portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
                      searchstring_group request/searchstring_group | nothing;
                      searchstring_group python:test(findAllGroups,'',searchstring_group);
-                     groups python:test(not site_properties.many_users, gtool.listGroups(), searchstring_group and here.prefs_user_group_search(searchstring_group, 'groups') or None);">
+                     groups python:test(not site_properties.many_users, sendto_view.listGroups(), searchstring_group and here.prefs_user_group_search(searchstring_group, 'groups') or None);">
 
       <h1 i18n:translate="heading_send_page_to">Send this page to somebody</h1>
 
@@ -42,10 +42,8 @@
 
           <legend i18n:translate="legend_address_info">Address info</legend>
 
-
-<!--span tal:replace="request/form|nothing"/-->
-
-    <tal:nascondi-anonimi condition="not:isAnon">
+	<span tal:replace="python:isAnon or 'rtrtrt'" />
+    <tal:ismember condition="not:isAnon">
 
 	  <!-- Selezione utenti -->
           <div class="field"
@@ -226,7 +224,7 @@
                         
                         
 						<dl class="collapsible inline collapsedOnLoad"
-                            tal:define="mlist python:here.getMemberOfGroup(this_group.getId())"
+                            tal:define="mlist python:sendto_view.getMemberOfGroup(this_group.getId())"
                             tal:condition="mlist">
                             <dt class="collapsibleHeader">Membri</dt>
                             <dd class="collapsibleContent" tal:repeat="memberinfo mlist">
@@ -250,7 +248,7 @@
 
 	</div>
 
-    </tal:nascondi-anonimi>
+    </tal:ismember>
 
 
 
@@ -327,7 +325,13 @@
             </textarea>
           </div>
 
-		  <input type="checkbox" id="bcc" name="bcc" /><label for="bcc">Usa BCC</label>
+		  <input type="checkbox" id="addme" name="addme"
+		         tal:attributes="checked sendto_view/default_addme_value"/> <label for="addme">Add myself in CC</label>
+          <div class="formHelp">
+              Add your email in the CC list of users.
+          </div>
+
+		  <input type="checkbox" id="bcc" name="bcc" /> <label for="bcc">Usa BCC</label>
           <div class="formHelp">
               Invia la mail inserendo gli utenti nella sezione BCC.
           </div>

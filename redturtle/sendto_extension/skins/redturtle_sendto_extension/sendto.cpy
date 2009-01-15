@@ -113,15 +113,25 @@ variables = {'send_from_address' : REQUEST.send_from_address,
              }
 
 
+if REQUEST.get('addme'):
+    addme = True
+else:
+    addme = False
+
+from_mail = REQUEST.send_from_address
+
 try:
     if not REQUEST.get('bcc',None):
-        host.secureSend(message, unique(theMailStrings),
-                        REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
+        host.secureSend(message, unique([from_mail,] + theMailStrings),
+                        from_mail, subject=pretty_title_or_id(context), charset=encoding)
     else:
-        host.secureSend(message, None, REQUEST.send_from_address,
-                        subject=pretty_title_or_id(context), charset=encoding, mbcc=unique(theMailStrings))        
+        host.secureSend(message, (from_mail,),
+                        from_mail, subject=pretty_title_or_id(context), charset=encoding,
+                        mbcc=unique(theMailStrings))        
+
 #    for mail in theMailStrings:
 #        host.secureSend(message, mail, REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
+
 except ConflictError:
     raise
 except: #XXX To many things could possibly go wrong. So we catch all.

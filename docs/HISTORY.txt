@@ -1,15 +1,23 @@
 Changelog
 =========
 
+1.2.0
+-----
+
+ * Fixed bug that make the send_to form impossible to use for member that can't access the
+   listGroups method of the portal_groups tool.
+ * Added the "Add myself to the recipients list" feature.
+ * Removed the old getMemberOfGroup script.
+
 1.1.0
 -----
 
- * Fixed some issues with old portal_status_message approach not working on Plone3.
+ * Fixed some issues with old portal_status_message approach not working on Plone 3.
  * Mail to multiple recipients are now a single mail with users in CC.
  * Added the BCC feature.
 
 1.0.0
 -----
 
-* Initial release
+ * Initial release
 
