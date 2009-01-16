@@ -1,0 +1,27 @@
+# redturtle.sendto_extension translation
+# RedTurtle 2009
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Plone\n"
+"POT-Creation-Date: 2008-12-23 12:00+0000\n"
+"PO-Revision-Date: 2009-01-16 10:07+0200\n"
+"Last-Translator: RedTurtle <info@redturtle.net>\n"
+"Language-Team: RedTurtle <info@redturtle.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n!=1\n"
+"Language-Code: it\n"
+"Language-Name: Italiano\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: plone\n"
+"X-Is-Fallback-For: it-ch it-it\n"
+
+
+msgid "help_sendto_addme"
+msgstr "Aggiungi il tuo indirizzo a lista utenti in CC"
+
+msgid "label_sendto_addme"
+msgstr "Aggiungimi in CC"
+

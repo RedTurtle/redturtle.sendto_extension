@@ -18,7 +18,6 @@ class SendtoExtensionView(BrowserView):
         """Given a group id, return its members.
         @return: a list of couples member_id, fullname.
         """
-        import pdb;pdb.set_trace()
         gtool = getToolByName(self.context, 'portal_groups')
         mtool = getToolByName(self.context, 'portal_membership')
         group = gtool.getGroupById(group_id)

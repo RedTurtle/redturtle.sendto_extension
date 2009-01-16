@@ -42,7 +42,6 @@
 
           <legend i18n:translate="legend_address_info">Address info</legend>
 
-	<span tal:replace="python:isAnon or 'rtrtrt'" />
     <tal:ismember condition="not:isAnon">
 
 	  <!-- Selezione utenti -->
@@ -325,15 +324,16 @@
             </textarea>
           </div>
 
-		  <input type="checkbox" id="addme" name="addme"
-		         tal:attributes="checked sendto_view/default_addme_value"/> <label for="addme">Add myself in CC</label>
-          <div class="formHelp">
-              Add your email in the CC list of users.
-          </div>
-
 		  <input type="checkbox" id="bcc" name="bcc" /> <label for="bcc">Usa BCC</label>
           <div class="formHelp">
               Invia la mail inserendo gli utenti nella sezione BCC.
+          </div>
+
+		  <input type="checkbox" id="addme" name="addme"
+		         tal:attributes="checked sendto_view/default_addme_value"/>
+		  <label for="addme" i18n:translate="label_sendto_addme">Add myself in CC</label>
+          <div class="formHelp" i18n:translate="help_sendto_addme">
+              Add your email in the CC list of users.
           </div>
 
           <div class="formControls">
