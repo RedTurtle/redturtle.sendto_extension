@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2.1
+-----
+
+ * Problem with non manager members.
+
 1.2.0
 -----
 
