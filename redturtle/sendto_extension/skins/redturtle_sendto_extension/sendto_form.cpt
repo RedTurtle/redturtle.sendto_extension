@@ -20,11 +20,12 @@
                      searchstring_user request/searchstring_user | nothing;
                      findAllUsers python:'form.button.findAllUsers' in request.keys();
                      findAllGroups python:'form.button.findAllGroups' in request.keys();
+					 singleSearch python:'form.button.Search' in request.keys();
                      searchstring_user python:test(findAllUsers,'',searchstring_user);
                      portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
                      searchstring_group request/searchstring_group | nothing;
                      searchstring_group python:test(findAllGroups,'',searchstring_group);
-                     groups python:test(not site_properties.many_users, sendto_view.listGroups(), searchstring_group and here.prefs_user_group_search(searchstring_group, 'groups') or None);">
+                     groups python:test(not site_properties.many_users and not singleSearch, sendto_view.listGroups(), searchstring_group and here.prefs_user_group_search(searchstring=searchstring_group, restrict='groups') or None);">
 
       <h1 i18n:translate="heading_send_page_to">Send this page to somebody</h1>
 
@@ -82,6 +83,7 @@
 				   class="searchButton"
 				   name="form.button.findAllUsers"
 				   value="Show all"
+				   tal:condition="python:not site_properties.many_users"
 				   tabindex=""
 				   i18n:attributes="value label_showall;"
 				   tal:attributes="tabindex tabindex/next;" />
@@ -191,6 +193,7 @@
 				   class="searchButton"
 				   name="form.button.findAllGroups"
 				   value="Show all"
+				   tal:condition="python:not site_properties.many_groups"
 				   tabindex=""
 				   i18n:attributes="value label_showall;"
 				   tal:attributes="tabindex tabindex/next;" />

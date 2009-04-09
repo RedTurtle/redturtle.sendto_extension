@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.2
+-----
+
+ * Enabled the groups specific search
+ * Integration with the site_properties.many_users and site_properties.many_groups.
+
 1.2.1
 -----
 
