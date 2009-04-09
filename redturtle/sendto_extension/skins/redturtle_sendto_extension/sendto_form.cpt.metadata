@@ -5,4 +5,4 @@ action.success..Search=traverse_to:string:sendto_form
 action.failure=traverse_to:string:sendto_form
 action.success=traverse_to:string:sendto
 [validators]
-validators..Send=validate_sendto
+validators..Search=validate_sendto

@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
       metal:use-macro="here/main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="redturtle.sendto_extension">
 
 <metal:block fill-slot="top_slot"
              tal:define="dummy python:request.set('disable_border',1)" />
@@ -20,7 +20,7 @@
                      searchstring_user request/searchstring_user | nothing;
                      findAllUsers python:'form.button.findAllUsers' in request.keys();
                      findAllGroups python:'form.button.findAllGroups' in request.keys();
-					 singleSearch python:'form.button.Search' in request.keys();
+					 singleSearch python:'form.button.Search' in request.keys() or ('form.button.findAllGroups' not in request.keys() and 'form.button.Search' not in request.keys());
                      searchstring_user python:test(findAllUsers,'',searchstring_user);
                      portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
                      searchstring_group request/searchstring_group | nothing;
@@ -156,7 +156,7 @@
 	  <!-- Selezione gruppi -->
 	  <div class="field"
 	       tal:define="error errors/send_users_address|nothing;
-	                   batch python:Batch(groups, b_size, int(b_start), orphan=1)"
+	                   batch python:Batch(groups or [], b_size, int(b_start), orphan=1)"
 	       tal:attributes="class python:test(error, 'field error', 'field')">
 
 	    <label>Invia a questi gruppi</label>
@@ -248,6 +248,7 @@
 
           <div metal:use-macro="here/batch_macros/macros/navigation" />
 
+
 	</div>
 
     </tal:ismember>
@@ -334,7 +335,7 @@
 
 		  <input type="checkbox" id="addme" name="addme"
 		         tal:attributes="checked sendto_view/default_addme_value"/>
-		  <label for="addme" i18n:translate="label_sendto_addme">Add myself in CC</label>
+		  <label for="addme" i18n:translate="">Add myself in CC</label>
           <div class="formHelp" i18n:translate="help_sendto_addme">
               Add your email in the CC list of users.
           </div>

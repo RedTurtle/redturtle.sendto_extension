@@ -1,6 +1,6 @@
-# redturtle.sendto_extension translation
-# RedTurtle 2009
-# 
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plone\n"
@@ -16,12 +16,10 @@ msgstr ""
 "Language-Name: Italiano\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: redturtle.sendto_extension\n"
-"X-Is-Fallback-For: it-ch it-it\n"
-
 
 msgid "help_sendto_addme"
-msgstr "Aggiungi il tuo indirizzo a lista utenti in CC"
+msgstr ""
 
 msgid "Add myself in CC"
-msgstr "Aggiungimi in CC"
+msgstr ""
 
