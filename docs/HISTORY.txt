@@ -4,7 +4,7 @@ Changelog
 1.2.3
 -----
 
- * Check for ENTRT key in the form, whitout using buttons
+ * Check for ENTER key in the form, whitout using buttons
  * Fixed translations?
 
 1.2.2
