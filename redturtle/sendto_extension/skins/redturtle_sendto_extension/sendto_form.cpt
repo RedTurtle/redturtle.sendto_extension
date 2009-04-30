@@ -313,7 +313,7 @@
             <label for="comment" i18n:translate="label_comment">Comment</label>
 
             <div class="formHelp" i18n:translate="help_comment_to_link">
-              A comment about this link.
+              Un commento a questo documento.
             </div>
 
             <textarea cols="80"
@@ -324,7 +324,7 @@
                       tal:content="request/comment | nothing"
                       tal:attributes="tabindex tabindex/next;"
                       >
-              Comment
+              Commento
             </textarea>
           </div>
 
@@ -334,10 +334,11 @@
           </div>
 
 		  <input type="checkbox" id="addme" name="addme"
-		         tal:attributes="checked sendto_view/default_addme_value"/>
-		  <label for="addme" i18n:translate="">Add myself in CC</label>
+		         tal:attributes="checked sendto_view/default_addme_value"
+				 value="true"/>
+		  <label for="addme" i18n:translate="">Aggiungimi in CC</label>
           <div class="formHelp" i18n:translate="help_sendto_addme">
-              Add your email in the CC list of users.
+              Aggiunge la propria email in CC, ricevendo cos&igrave; il messaggio inviato.
           </div>
 
           <div class="formControls">

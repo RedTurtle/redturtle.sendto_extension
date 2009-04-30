@@ -4,8 +4,8 @@ Changelog
 1.2.3
 -----
 
- * Check for ENTER key in the form, whitout using buttons
- * Fixed translations?
+ * Fixed validator calls: only call validate_sendto when clicking on Send.
+ * Fixed a non working use of "add myself to cc".
 
 1.2.2
 -----

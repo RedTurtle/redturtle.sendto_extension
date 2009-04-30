@@ -19,6 +19,7 @@ from Products.CMFPlone.utils import transaction_note
 plone_utils = getToolByName(context, 'plone_utils')
 mtool = getToolByName(context, 'portal_membership')
 gtool = getToolByName(context, 'portal_groups')
+acl_users = getToolByName(context, 'acl_users')
 site_properties = getToolByName(context, 'portal_properties').site_properties
 pretty_title_or_id = plone_utils.pretty_title_or_id
 empty_title = plone_utils.getEmptyTitle()
@@ -26,7 +27,7 @@ empty_title = plone_utils.getEmptyTitle()
 def getInnerMails(group):
    """Ottiene le mail degli utenti interni al gruppo,ricorsivamente nei gruppi interni"""
    retMail = []
-   members = gtool.getGroupById(group.getId()).getGroupMembers()
+   members = group.getGroupMembers()
    for m in members:
       if gtool.isGroup(m):
          # Gruppo interno: devo ottenere le mail di tutti gli utenti
@@ -85,6 +86,7 @@ for u in users_id:
 ### Gruppi aggiuntivi
 for g in groups_id:
     members = gtool.getGroupById(g).getGroupMembers()
+    #members = acl_users.getGroup(g).getMemberIds()
     for m in members:
         if gtool.isGroup(m):
             # Gruppo interno: devo ottenere le mail di tutti gli utenti
@@ -112,22 +114,20 @@ variables = {'send_from_address' : REQUEST.send_from_address,
              'envelope_from'     : site_properties.email_from_address
              }
 
-
-if REQUEST.get('addme'):
-    addme = True
-else:
-    addme = False
-
 from_mail = REQUEST.send_from_address
+if REQUEST.get('addme',False):
+    addmemail = [from_mail,]
+else:
+    addmemail = []
 
 try:
-    if not REQUEST.get('bcc',None):
-        host.secureSend(message, unique([from_mail,] + theMailStrings),
-                        from_mail, subject=pretty_title_or_id(context), charset=encoding)
-    else:
-        host.secureSend(message, (from_mail,),
+    if REQUEST.get('bcc',None):
+        host.secureSend(message, addmemail,
                         from_mail, subject=pretty_title_or_id(context), charset=encoding,
-                        mbcc=unique(theMailStrings))        
+                        mbcc=unique(theMailStrings))       
+    else:
+        host.secureSend(message, unique(addmemail + theMailStrings),
+                        from_mail, subject=pretty_title_or_id(context), charset=encoding)
 
 #    for mail in theMailStrings:
 #        host.secureSend(message, mail, REQUEST.send_from_address, subject=pretty_title_or_id(context), charset=encoding)
@@ -144,5 +144,10 @@ except: #XXX To many things could possibly go wrong. So we catch all.
 tmsg='Sent page %s to %s' % (url, REQUEST.send_to_address)
 transaction_note(tmsg)
 
-plone_utils.addPortalMessage("Mail sent")
+theMailStrings = [x for x in theMailStrings if x]
+
+if theMailStrings:
+    plone_utils.addPortalMessage("Invio effettuato")
+else:
+    plone_utils.addPortalMessage("Invio non effettuato; non sono stati trovati destinatari per i dati utilizzati", type="warning")
 return state
