@@ -98,7 +98,15 @@ for g in groups_id:
             if email:
                 theMailStrings.append(email)
 
-kwargs = {'signature' : signature}
+# Link to the explicit view if the portal type is in typesUseViewActionInListings
+typesUseViewActionInListings = site_properties.typesUseViewActionInListings
+view_url = context.absolute_url()
+if context.portal_type in typesUseViewActionInListings:
+    view_url = view_url+"/view"
+
+kwargs = {'signature' : signature,
+          'url': view_url,
+          }
 
 message = template(context, send_to_address=', '.join(theMailStrings),
     send_from_address=REQUEST.send_from_address,
