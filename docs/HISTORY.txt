@@ -6,6 +6,8 @@ Changelog
 
  * Removed (broken) translations, so all now is back to standard Plone i18n.
  * Now send link from content type like File, send and url to 'xxx/view'.
+ * Users in the the user listing table are now sortable.
+ * Changed the user visualization from "userid (fullname)" to "fullname (userid)".
 
 1.2.3
 -----
