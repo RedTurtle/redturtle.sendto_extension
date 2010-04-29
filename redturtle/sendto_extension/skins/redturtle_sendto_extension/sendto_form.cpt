@@ -25,7 +25,7 @@
                      portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
                      searchstring_group request/searchstring_group | nothing;
                      searchstring_group python:test(findAllGroups,'',searchstring_group);
-                     groups python:test(not site_properties.many_users and not singleSearch, sendto_view.listGroups(), searchstring_group and here.prefs_user_group_search(searchstring=searchstring_group, restrict='groups') or None);">
+                     groups python:test(not site_properties.many_users and not singleSearch, sendto_view.listGroups(), searchstring_group and here.extension_prefs_user_group_search(searchstring=searchstring_group, restrict='groups') or None);">
 
       <h1 i18n:translate="heading_send_page_to">Send this page to somebody</h1>
 
