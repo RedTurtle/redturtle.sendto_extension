@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.3.2'
+version = '1.3.3'
 
 setup(name='redturtle.sendto_extension',
       version=version,
@@ -27,6 +27,7 @@ setup(name='redturtle.sendto_extension',
           'setuptools',
       ],
       entry_points="""
-      # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
