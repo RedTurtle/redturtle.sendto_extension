@@ -4,7 +4,7 @@ Changelog
 1.3.3 (2010-08-17)
 ------------------
 
-* added z3c.autoinclude [keul[
+* added z3c.autoinclude [keul]
 
 1.3.2 (2010-04-29)
 ------------------
