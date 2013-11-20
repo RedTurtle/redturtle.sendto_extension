@@ -9,10 +9,14 @@ from plone.memoize.instance import memoize
 class SendtoExtensionView(BrowserView):
     """Service view for the send_to extension"""
     
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+        request.set('disable_border',1)
+
     def listGroups(self):
         gtool = getToolByName(self.context, 'portal_groups')
         return gtool.listGroups()
-
 
     def getMemberOfGroup(self, group_id):
         """Given a group id, return its members.

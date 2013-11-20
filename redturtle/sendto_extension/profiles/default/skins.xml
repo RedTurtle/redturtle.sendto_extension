@@ -5,7 +5,7 @@
     meta_type="Filesystem Directory View"
     directory="redturtle.sendto_extension:skins/redturtle_sendto_extension"/>
 
- <skin-path name="*" based-on="Plone Default">
+ <skin-path name="*">
   <layer name="redturtle_sendto_extension"
      insert-after="custom"/>
  </skin-path>

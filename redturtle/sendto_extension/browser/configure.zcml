@@ -3,14 +3,14 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="gestionerichieste_skin">
 
-    <include package="plone.app.contentmenu" />
+  <include package="plone.app.contentmenu" />
 
   <browser:page
       for="*"
       name="sendto"
 	  class=".sendto.SendtoExtensionView"
+	  template="sendto.pt"
       permission="cmf.UseMailhostServices"
-	  allowed_attributes="listGroups getMemberOfGroup default_addme_value"
       />
 
 

@@ -1,22 +1,24 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.3.3'
+version = '2.0.0.dev0'
 
 setup(name='redturtle.sendto_extension',
       version=version,
-      description="Extension for the mail_to form on Plone",
-      long_description=open("README.txt").read() + "\n" +
+      description='An extension for the "Send this" Plone document action',
+      long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
+        "Development Status :: 4 - Beta",
         "Framework :: Plone",
+        "Framework :: Plone :: 4.3",
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
         ],
-      keywords='plone sendto mail users groups',
+      keywords='plone plonegov sendto mail users groups',
       author='Redturtle Technology',
-      author_email='info@redturtle.net',
+      author_email='sviluppoplone@redturtle.it',
       url='https://code.redturtle.it/svn/redturtle/redturtle.sendto_extension/',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
