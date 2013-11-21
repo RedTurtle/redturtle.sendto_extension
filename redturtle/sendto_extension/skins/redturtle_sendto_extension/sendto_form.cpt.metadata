@@ -1,8 +1,0 @@
-[actions]
-action.success..findAllUsers=traverse_to:string:sendto_form
-action.success..findAllGroups=traverse_to:string:sendto_form
-action.success..Search=traverse_to:string:sendto_form
-action.failure=traverse_to:string:sendto_form
-action.success=traverse_to:string:sendto
-[validators]
-validators..Send=validate_sendto

@@ -1,0 +1,62 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-11-21 16:43+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: it\n"
+"Language-Name: Italian\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: redturtle.sendto_extension\n"
+"X-Is-Fallback-For: it-ch it-it\n"
+
+#: ../browser/sendto.pt:92
+msgid "Add me to recipients"
+msgstr "Aggiungimi ai destinatari"
+
+#: ../browser/sendto.py:13
+msgid "Enter a list of email addresses to send this page to"
+msgstr "Inserisci una lista di indirizzi e-mail a cui inviare questa pagina"
+
+#: ../browser/sendto.py:17
+msgid "Select a set of groups to which members send this page to"
+msgstr "Seleziona un insieme di gruppi ai quali membri inviare questa pagina"
+
+#: ../browser/sendto.py:15
+msgid "Select a set of site members to send this page to"
+msgstr "Inserisci un insieme di utenti del sito a cui inviare questa pagina"
+
+#: ../browser/sendto.py:12
+msgid "Send to"
+msgstr "Invia a"
+
+#: ../browser/sendto.py:16
+msgid "Send to groups"
+msgstr "Invia a gruppi"
+
+#: ../browser/sendto.py:14
+msgid "Send to site members"
+msgstr "Invia ad utenti"
+
+#: ../browser/sendto.pt:41
+msgid "Sending information"
+msgstr "Informazioni di invio"
+
+#. Default: "You can send a link to this page to a know e-mail address filling information below."
+#: ../browser/sendto.pt:28
+msgid "description_send_page_url_to"
+msgstr "Puoi inviare un link a questa pagina ad un indirizzo e-mail conosciuto fornendo le informazioni qui sotto."
+
+#. Default: "Add my address to the list of recipients so I can receive the e-mail"
+#: ../browser/sendto.pt:93
+msgid "help_cc_me"
+msgstr "Aggiungi il mio indirizzo alla lista dei destinatari così potrò ricevere l'email"
+

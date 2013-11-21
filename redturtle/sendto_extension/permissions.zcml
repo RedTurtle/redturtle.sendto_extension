@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+   <!-- Original Plone permission -->
+   <permission
+       id="cmf.UseMailhostServices"
+       title="Use mailhost services"
+      />
+
+   <permission
+       id="redturtle.sendto_extension.permission.QuerySiteMembers"
+       title="SendTo Extension: query site members"
+      />
+
+   <permission
+       id="redturtle.sendto_extension.permission.QueryGroups"
+       title="SendTo Extension: query groups"
+      />
+
+</configure>

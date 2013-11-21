@@ -1,8 +1,0 @@
-[default]
-proxy = Manager,Anonymous 
-
-[actions]
-action.success=redirect_to_action:string:view
-action.failure=redirect_to_action:string:view
-[validators]
-validators=validate_sendto

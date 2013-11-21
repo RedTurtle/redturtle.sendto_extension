@@ -1,17 +1,33 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="gestionerichieste_skin">
+    i18n_domain="redturtle.sendto_extension">
 
   <include package="plone.app.contentmenu" />
 
   <browser:page
       for="*"
       name="sendto"
-	  class=".sendto.SendtoExtensionView"
-	  template="sendto.pt"
+      class=".sendto.SendtoExtensionView"
+      template="sendto.pt"
+      layer="..interfaces.IRTSendToExtensionLayer"
       permission="cmf.UseMailhostServices"
       />
 
+  <browser:page
+      for="*"
+      name="query-site-members"
+      class=".query.QuerySiteMemberView"
+      layer="..interfaces.IRTSendToExtensionLayer"
+      permission="redturtle.sendto_extension.permission.QuerySiteMembers"
+      />
+
+  <browser:page
+      for="*"
+      name="query-groups"
+      class=".query.QueryGroupsView"
+      layer="..interfaces.IRTSendToExtensionLayer"
+      permission="redturtle.sendto_extension.permission.QueryGroups"
+      />
 
 </configure>

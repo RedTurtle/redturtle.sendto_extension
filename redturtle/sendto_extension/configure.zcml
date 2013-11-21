@@ -7,12 +7,12 @@
     i18n_domain="redturtle.sendto_extension">
 
    <five:registerPackage package="." initialize=".initialize" />
+   <i18n:registerTranslations directory="locales" />
 
-   <permission
-       id="cmf.UseMailhostServices"
-       title="Use mailhost services"
-      />
+   <include file="permissions.zcml" />
 
+   <include package="collective.js.jqueryui" />
+   <include package="rt.zptformfield" />
    <include package=".browser" />
 
    <cmf:registerDirectory

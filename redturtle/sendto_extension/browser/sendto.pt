@@ -4,340 +4,107 @@
       metal:use-macro="here/main_template/macros/master"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="redturtle.sendto_extension"
-	  xml:lang="en" lang="en">
+      xml:lang="en" lang="en">
 
-  <metal:head fill-slot="head_slot">
+<metal:head fill-slot="head_slot">
     <meta name="robots" content="noindex,follow" />
-  </metal:head>
+</metal:head>
 
-  <body>
+<metal:head fill-slot="javascript_head_slot">
+    <metal:field-content use-macro="context/@@rt.zptformfield.lines/javascript_helpers" />
+    <metal:field-content use-macro="context/@@rt.zptformfield.autocomplete_lines/javascript_helpers" />
+</metal:head>
 
-    <div metal:fill-slot="main"
-         tal:define="errors python:{};
-		             isAnon context/@@plone_portal_state/anonymous;
-					 member context/@@plone_portal_state/member;
-		             Batch python:modules['Products.CMFPlone'].Batch;
-                     b_start request/b_start | python:0;
-                     b_size request/b_size | python:200;
-                     searchstring_user request/searchstring_user | nothing;
-                     findAllUsers python:'form.button.findAllUsers' in request.keys();
-                     findAllGroups python:'form.button.findAllGroups' in request.keys();
-					 singleSearch python:'form.button.Search' in request.keys() or ('form.button.findAllGroups' not in request.keys() and 'form.button.Search' not in request.keys());
-                     searchstring_user python:'' if findAllUsers else searchstring_user;
-                     portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
-                     searchstring_group request/searchstring_group | nothing;
-                     searchstring_group python:'' if findAllGroups else searchstring_group;
-                     groups python:view.listGroups() if not site_properties.many_users and not singleSearch else searchstring_group and here.extension_prefs_user_group_search(searchstring=searchstring_group, restrict='groups') or None;">
+<body>
 
-      <h1 class="documentFirstHeading"
-	      i18n:domain="plone"
-          i18n:translate="heading_send_page_to">Send this page to someone</h1>
 
-      <div class="documentDescription"
-	       i18n:domain="plone"
-           i18n:translate="description_send_page_url_to">
-        Fill in the email address of your friend, and we will send an email
-        that contains a link to this page.
-      </div>
+<metal:title fill-slot="content-title">
+    <h1 class="documentFirstHeading"
+        i18n:domain="plone"
+        i18n:translate="heading_send_page_to">Send this page to someone</h1>
+</metal:title>
 
-      <form action="sendto_form"
-            method="post"
-            enctype="multipart/form-data"
-            tal:attributes="action string:${context/absolute_url}/${view/__name__}">
+<metal:description fill-slot="content-description">
+    <div class="documentDescription"
+         i18n:translate="description_send_page_url_to">
+                You can send a link to this page to a know e-mail address filling
+                information below.
+    </div>
+</metal:description>
 
+<metal:content-core fill-slot="content-core">
+    <metal:content-core define-macro="content-core">
+
+    <form id="sendToForm" method="post" action=""
+          tal:attributes="action string:${context/absolute_url}/@@${view/__name__}">
         <fieldset>
+            <legend i18n:translate="">Sending information</legend>
 
-          <legend i18n:translate="legend_address_info">Address info</legend>
-
-    <tal:ismember condition="not:isAnon">
-
-	  <!-- Selezione utenti -->
-          <div class="field"
-               tal:define="error errors/send_users_address|nothing;
-                           batch python:Batch(portal_users, b_size, int(b_start), orphan=1);"
-               tal:attributes="class python:'field error' if error else 'field'">
-
-            <label for="searchstring_user" i18n:translate="label_send_to_mail">Invia a questi utenti</label>
-
-                <div class="formHelp">
-		   Invia la pagina ad alcuni utenti del portale
+            <div class="field">
+                <label for="send_from_address" i18n:domain="plone" i18n:translate="label_send_from">From</label>
+                <span class="fieldRequired" title="Required"
+                      i18n:domain="plone" 
+                      i18n:attributes="title title_required;"
+                      i18n:translate="label_required">(Required)</span>
+                <div class="formHelp"
+                     i18n:domain="plone" i18n:translate="help_send_from">
+                  Your email address.
                 </div>
-
-		  <table class="listing" summary="User Listing">
-		<thead>
-		<tr>
-		  <th colspan="3" class="nosort">
-		    <span tal:omit-tag="" i18n:translate="label_user_search">User Search</span>:
-		    <input type="text"
-				   name="searchstring_user"
-				   id="searchstring_user"
-				   value=""
-				   size="30"
-				   tal:attributes="value searchstring_user;"
-		      />
-
-		    <input type="submit"
-				   class="searchButton"
-				   name="form.button.Search"
-				   value="Search"
-				   i18n:attributes="value label_search;" />
-
-		    <input type="submit"
-				   class="searchButton"
-				   name="form.button.findAllUsers"
-				   value="Show all"
-				   tal:condition="python:not site_properties.many_users"
-				   i18n:attributes="value label_showall;" />
-
-		    </th>
-		</tr>
-			
-		<tal:block tal:condition="portal_users" >
-		  <tr>
-		    <th colspan="2" i18n:translate="listingheader_user_name">User name</th>
-		    <th i18n:translate="listingheader_email_address">E-mail Address</th>
-		  </tr>
-		</tal:block>
-		</thead>
-
-		<tal:block repeat="this_user batch"
-		           define="selectedusers python:request.get('users_id',None)">
-		  <tr tal:define="oddrow repeat/this_user/odd;
-				  userid this_user/getUserId;
-				  fullname python: this_user.getProperty('fullname')"
-		      tal:attributes="class python:'odd' if oddrow else 'even'">
-
-		    <td class="listingCheckbox">
-                        <input type="checkbox"
-                               class="noborder"
-                               name="users_id:list"
-                               tal:attributes="value userid;
-                               		           checked python:selectedusers and userid in selectedusers;" />
-		    </td>
-		    <td>
-			    <tal:block replace="structure portal/user.gif"/>&nbsp;<span tal:replace="fullname">Full Name</span>
-			    (<span tal:replace="this_user/getUserName">username</span>)
-		    </td>
-
-		    <td tal:define="email python:this_user.getProperty('email')">
-		      <a href="#"
-				 class="link-plain"
-				 style="text-decoration:none"
-				 tal:attributes="href string:mailto:${email}"
-				 title="Send a mail to this user"
-				 i18n:attributes="title title_send_mail_to_user;"
-				 ><tal:block replace="structure here/mail_icon.gif"/><span tal:replace="email"/></a>
-		    </td>
-
-		  </tr>
-		</tal:block>
-
-			<tr tal:condition="not:batch">
-			    <td tal:condition="searchstring_user"
-				i18n:translate="text_nomatches"
-				style="text-align:center;">No matches</td>
-			    <td tal:condition="not:searchstring_user"
-				class="discreet"
-				i18n:translate="text_no_user_searchstring"
-				style="text-align:center; font-size: 100%;">
-				Enter a username to search for, or click 'Show All'
-			    </td>
-			</tr>
-		  </table>
-
-		  <div metal:use-macro="here/batch_macros/macros/navigation" />
-          </div>
-
-
-
-
-
-
-
-
-	  <!-- Selezione gruppi -->
-	  <div class="field"
-	       tal:define="error errors/send_users_address|nothing;
-	                   batch python:Batch(groups or [], b_size, int(b_start), orphan=1)"
-	       tal:attributes="class python:'field error' if error else 'field'">
-
-	    <label>Invia a questi gruppi</label>
-
-		<div class="formHelp">
-		   Invia la pagina a tutti i membri di questi gruppi
-		</div>
-
-            <input type="hidden" value="b_start" name="b_start"
-                 tal:attributes="value b_start"/>
-
-            <table class="listing" summary="Seleziona i gruppi cui inviare una email">
-		<tr>
-		  <th colspan="2">
-		    <span tal:omit-tag="">Ricerca gruppo</span>:
-		    <input type="text"
-				   name="searchstring_group"
-				   id="searchstring_group"
-				   value=""
-				   tal:attributes="value searchstring_group;"
-		      />
-
-		    <input type="submit" class="searchButton"
-				   name="form.button.Search"
-				   value="Search" />
-
-		    <input type="submit"
-				   class="searchButton"
-				   name="form.button.findAllGroups"
-				   value="Show all"
-				   tal:condition="python:not site_properties.many_groups"
-				   i18n:attributes="value label_showall;" />
-
-		    </th>
-		</tr>
-                <tal:block tal:condition="groups">
-                    <tr>
-                        <th colspan="2" i18n:translate="listingheader_group_name">Group name</th>
-                    </tr>
-                </tal:block>
-
-                <tal:block repeat="this_group batch"
-                   	   define="selectedgroups python:request.get('groups_id',None)">
-                    <tr tal:define="oddrow repeat/this_group/odd"
-                        tal:attributes="class python:'odd' if oddrow else'even'">
-
-                    <td class="listingCheckbox">
-                        <input type="checkbox"
-                               class="noborder" 
-                               name="groups_id:list"
-                               tal:attributes="value this_group/getGroupName;
-                               checked python:selectedgroups and this_group.getGroupName() in selectedgroups;" />                           
-                    </td>
-
-
-                    <td>
-                        <tal:block replace="structure portal/group.gif"/>&nbsp;
-                        <tal:group tal:replace="this_group/getGroupName" /> (<span tal:condition="this_group/getGroupTitleOrName" tal:replace="this_group/getGroupTitleOrName"/>)
-                        
-                        
-						<dl class="collapsible inline collapsedOnLoad"
-                            tal:define="mlist python:view.getMemberOfGroup(this_group.getId())"
-                            tal:condition="mlist">
-                            <dt class="collapsibleHeader">Membri</dt>
-                            <dd class="collapsibleContent" tal:repeat="memberinfo mlist">
-                                <span tal:replace="python: memberinfo[0]+memberinfo[1]" />
-                            </dd>
-                        </dl>
-						
-                    </td>
-
-            </tr>
-            </tal:block>
-
-            <tal:block tal:condition="not:batch">
-                <tr>
-                    <td i18n:translate="text_nomatches" style="text-align:center;">No matches</td>
-                </tr>
-            </tal:block>
-            </table>
-
-          <div metal:use-macro="here/batch_macros/macros/navigation" />
-
-
-	</div>
-
-    </tal:ismember>
-
-          <div class="field"
-               tal:define="error errors/send_to_address|nothing;"
-               tal:attributes="class python:'field error' if error else 'field'">
-
-            <label for="send_to_address" i18n:translate="label_send_to_mail">Send to</label>
-
-		  <div class="formHelp">
-		    Altri indirizzi email cui inviale la pagina (separati da virgola)
-		  </div>
-
-		  <div tal:content="error">Validation error output</div>
-
-		  <input type="text"
-			 id="send_to_address"
-			 name="send_to_address"
-			 size="50"
-			 tal:attributes="value request/send_to_address | nothing;"
-			 />
-          </div>
-
-
-          <div class="field"
-               tal:define="error errors/send_from_address|nothing;"
-               tal:attributes="class python:'field error' if error else 'field'">
-
-            <label for="send_from_address" i18n:translate="label_send_from">From</label>
-
-            <span class="fieldRequired" title="Required"
-                  i18n:attributes="title title_required;"
-                  i18n:translate="label_required">(Required)</span>
-
-                  <div class="formHelp" i18n:translate="help_send_from">
-                    Your email address.
-                  </div>
-
-                  <div tal:content="error">Validation error output</div>
-
-                  <input type="text"
-                         id="send_from_address"
-                         name="send_from_address"
-                         size="25"
-                         tal:attributes="value python: request.get('send_from_address', member.getProperty('email',''));"
-                         />
-          </div>
-
-          <div class="field">
-            <label for="comment" i18n:translate="label_comment">Comment</label>
-
-            <div class="formHelp" i18n:translate="help_comment_to_link">
-              Un commento a questo documento.
+                <input type="email"
+                       id="send_from_address"
+                       name="send_from_address"
+                       size="40"
+                       tal:define="member context/@@plone_portal_state/member;"
+                       tal:attributes="value python: request.get('send_from_address', member.getProperty('email',''));"
+                       />
             </div>
 
-            <textarea cols="80"
-                      rows="5"
-                      id="comment"
-                      name="comment"
-                      tal:content="request/comment | nothing"
-                      >
-              Commento
-            </textarea>
-          </div>
+            <tal:field define="fieldName string:send_to_address;
+                               fieldType string:email;
+                               fieldLabel view/i18n_send_to_address;
+                               fieldHelp view/i18n_send_to_address_help;
+                               required python:False;
+                               pattern string:[^ @]@[^ @];
+                               ">
+                <metal:field-content use-macro="context/@@rt.zptformfield.lines/field" />
+            </tal:field>
 
-		  <input type="checkbox" id="bcc" name="bcc" /> <label for="bcc">Usa BCC</label>
-          <div class="formHelp">
-              Invia la mail inserendo gli utenti nella sezione BCC.
-          </div>
+            <tal:field define="fieldName string:send_to_members;
+                               source string:${portal_url}/@@query-site-members;
+                               fieldLabel view/i18n_send_to_members;
+                               fieldHelp view/i18n_send_to_members_help;
+                               required python:False;
+                               ">
+                <metal:field-content use-macro="context/@@rt.zptformfield.autocomplete_lines/field" />
+            </tal:field>
 
-		  <input type="checkbox" id="addme" name="addme"
-		         tal:attributes="checked view/default_addme_value"
-				 value="true"/>
-		  <label for="addme" i18n:translate="">Aggiungimi in CC</label>
-          <div class="formHelp" i18n:translate="help_sendto_addme">
-              Aggiunge la propria email in CC, ricevendo cos&igrave; il messaggio inviato.
-          </div>
+            <tal:field define="fieldName string:send_to_groups;
+                               source string:${portal_url}/@@query-groups;
+                               fieldLabel view/i18n_send_to_groups;
+                               fieldHelp view/i18n_send_to_groups_help;
+                               required python:False;
+                               ">
+                <metal:field-content use-macro="context/@@rt.zptformfield.autocomplete_lines/field" />
+            </tal:field>
 
-          <div class="formControls">
-            <input class="context"
-                   type="submit"
-                   name="form.button.Send"
-                   value="Send"
-                   i18n:attributes="value label_send;"
-                   />
-          </div>
+            <div class="field">
+                <input type="checkbox" id="cc_me" name="cc_me:boolean:default" value="1" />
+                <label for="cc_me" i18n:translate="">Add me to recipients</label>
+                <div class="formHelp" i18n:translate="help_cc_me">
+                  Add my address to the list of recipients so I can receive the e-mail
+                </div>
+            </div>
 
-          <input type="hidden" name="form.submitted" value="1" />
+        <input type="hidden" name="form.submitted" value="1" />
+        
+        <input type="submit" name="Send" value="Send"
+               i18n:domain="plone" i18n:attributes="value"/>
 
         </fieldset>
+    </form>
 
-      </form>
+    </metal:content-core>
+</metal:content-core>
 
-    </div>
-
-  </body>
+</body>
 </html>

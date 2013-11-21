@@ -3,47 +3,31 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from redturtle.sendto_extension import _
 
-from plone.memoize.instance import memoize
 
 class SendtoExtensionView(BrowserView):
     """Service view for the send_to extension"""
+
+    i18n_send_to_address = _('Send to')
+    i18n_send_to_address_help =  _('Enter a list of email addresses to send this page to')
+    i18n_send_to_members = _('Send to site members')
+    i18n_send_to_members_help =  _('Select a set of site members to send this page to')
+    i18n_send_to_groups = _('Send to groups')
+    i18n_send_to_groups_help = _('Select a set of groups to which members send this page to')
     
     def __init__(self, context, request):
         self.context = context
         self.request = request
-        request.set('disable_border',1)
+        request.set('disable_border', 1)
 
-    def listGroups(self):
-        gtool = getToolByName(self.context, 'portal_groups')
-        return gtool.listGroups()
+    def _send(self):
+        """Send e-mail to all recipients, loading e-mail from member is needed and doing security check"""
+        form = self.request.form
+        # TODO: to be done
 
-    def getMemberOfGroup(self, group_id):
-        """Given a group id, return its members.
-        @return: a list of couples member_id, fullname.
-        """
-        gtool = getToolByName(self.context, 'portal_groups')
-        mtool = getToolByName(self.context, 'portal_membership')
-        group = gtool.getGroupById(group_id)
-        members = group.getGroupMembers()
-        lst = []
-        for m in members:
-            mdata = [m.getId()]
-            name = m.getProperty('fullname', None)
-            if name:
-                mdata.append(" (%s)" % name)
-            else:
-                mdata.append("")
-            lst.append(mdata)
-        return lst
-
-    def default_addme_value(self):
-        """The default value for this site for the addme check
-        @return: False, or the string "checked"
-        """
-        try:
-            addme_to_cc_default = self.context.portal_properties.site_properties.addme_to_cc_default
-        except AttributeError:
-            addme_to_cc_default = False
-        return (addme_to_cc_default and 'checked') or False
-
+    def __call__(self):
+        if self.request.form.get('form.submitted'):
+            import pdb;pdb.set_trace()
+            self._send()
+        return self.index()

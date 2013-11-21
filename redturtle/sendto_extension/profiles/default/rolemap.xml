@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="SendTo Extension: query site members"
+                acquire="False">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Member"/>
+    </permission>
+    <permission name="SendTo Extension: query groups"
+                acquire="False">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Member"/>
+    </permission>
+  </permissions>
+</rolemap>
