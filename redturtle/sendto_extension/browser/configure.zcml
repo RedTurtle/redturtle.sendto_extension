@@ -5,6 +5,11 @@
 
   <include package="plone.app.contentmenu" />
 
+  <browser:resourceDirectory
+      name="redturtle.sendto_extension.resources"
+	  directory="resources"
+	  />
+
   <browser:page
       for="*"
       name="sendto"
@@ -28,6 +33,14 @@
       class=".query.QueryGroupsView"
       layer="..interfaces.IRTSendToExtensionLayer"
       permission="redturtle.sendto_extension.permission.QueryGroups"
+      />
+
+  <browser:page
+      name="sendto-settings"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".controlpanel.SendToSettingsControlPanel"
+      permission="redturtle.sendto_extension.permission.Settings"
+      layer="..interfaces.IRTSendToExtensionLayer"
       />
 
 </configure>

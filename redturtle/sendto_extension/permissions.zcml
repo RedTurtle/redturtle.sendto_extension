@@ -17,4 +17,9 @@
        title="SendTo Extension: query groups"
       />
 
+   <permission
+       id="redturtle.sendto_extension.permission.Settings"
+       title="Plone Site Setup: Send to form"
+      />
+
 </configure>

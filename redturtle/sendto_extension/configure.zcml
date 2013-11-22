@@ -20,7 +20,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="SendTo Extension"
+      title="Send to Extension"
       directory="profiles/default"
       description='An extension for the "Send this" document action'
       provides="Products.GenericSetup.interfaces.EXTENSION"
