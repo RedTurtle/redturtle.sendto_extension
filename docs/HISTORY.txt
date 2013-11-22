@@ -6,7 +6,11 @@ Changelog
 
 Plone 4.3 compatibility and public release
 
-- nothing changed yet
+- Hide default Plone send to form
+- No more comma-separated input
+- AJAX form and search
+- Now provided configuration from control panel
+- Granular security
 
 1.3.3 (2010-08-17)
 ------------------
