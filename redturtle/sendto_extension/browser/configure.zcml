@@ -16,7 +16,7 @@
       class=".sendto.SendtoExtensionView"
       template="sendto.pt"
       layer="..interfaces.IRTSendToExtensionLayer"
-      permission="cmf.UseMailhostServices"
+      permission="plone.AllowSendto"
       />
 
   <browser:page
@@ -39,8 +39,8 @@
       name="sendto-settings"
       for="Products.CMFPlone.interfaces.IPloneSiteRoot"
       class=".controlpanel.SendToSettingsControlPanel"
-      permission="redturtle.sendto_extension.permission.Settings"
       layer="..interfaces.IRTSendToExtensionLayer"
+      permission="redturtle.sendto_extension.permission.Settings"
       />
 
 </configure>

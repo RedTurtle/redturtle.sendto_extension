@@ -4,10 +4,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-22 17:22+0000\n"
+"POT-Creation-Date: 2013-12-06 17:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Last-Translator: Luca Fabbri <keul@redturtle.it>\n"
+"Language-Team: RedTurtle Technology <sviluppoplone@redturtle.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -53,27 +53,27 @@ msgstr "Inserisci una lista di indirizzi e-mail a cui inviare questa pagina"
 msgid "Message"
 msgstr "Messaggio"
 
-#: ../browser/sendto.py:131
+#: ../browser/sendto.py:142
 msgid "Message sent"
 msgstr "Messaggio inviato"
 
 #. Default: "error"
-#: ../browser/sendto.py:127
+#: ../browser/sendto.py:138
 msgid "No recipients"
 msgstr "Nessun destinatario"
 
 #. Default: "error"
-#: ../browser/sendto.py:124
+#: ../browser/sendto.py:135
 msgid "No sender address provided"
 msgstr "Nessun indirizzo del mittente fornito"
 
-#: ../browser/sendto.py:24
-msgid "Select a set of groups to which members send this page to"
-msgstr "Seleziona un insieme di gruppi ai quali membri inviare questa pagina"
+#: ../profiles/default/actions.xml
+msgid "Send link"
+msgstr "Spedisci collegamento"
 
-#: ../browser/sendto.py:22
-msgid "Select a set of site members to send this page to"
-msgstr "Seleziona un insieme di utenti del sito a cui inviare questa pagina"
+#: ../profiles/default/actions.xml
+msgid "Send link to this page to somebody"
+msgstr "Spedisci collegamento a questa pagina a qualcuno"
 
 #: ../browser/sendto.py:15
 msgid "Send to"
@@ -90,11 +90,11 @@ msgstr "Estensione del Send to"
 msgid "Send to form settings"
 msgstr "Importazioni del modulo \"Invia a\""
 
-#: ../browser/sendto.py:23
+#: ../browser/sendto.py:25
 msgid "Send to groups"
 msgstr "Invia a gruppi"
 
-#: ../browser/sendto.py:29
+#: ../browser/sendto.py:34
 msgid "Send to groups (using BCC)"
 msgstr "Invia a gruppi (usando BCC)"
 
@@ -102,7 +102,7 @@ msgstr "Invia a gruppi (usando BCC)"
 msgid "Send to site members"
 msgstr "Invia ad utenti"
 
-#: ../browser/sendto.py:25
+#: ../browser/sendto.py:29
 msgid "Send to site members (using BCC)"
 msgstr "Invia ad utenti (usando BCC)"
 
@@ -176,17 +176,33 @@ msgstr ""
 msgid "message_help"
 msgstr "Fornisci un messaggio da inviare al destinatario"
 
-#. Default: "Select a set of groups to which members send this page to.\nUsers inside groups in this list will not be revealed to other recipients"
-#: ../browser/sendto.py:30
+#. Default: "Select a set of groups to which members send this page to.\nStart typing some character, then select from the dropdown."
+#: ../browser/sendto.py:26
+msgid "send_to_groups_help"
+msgstr ""
+"Seleziona un insieme di gruppi, ai quali membri inviare questa pagina.\n"
+"Inizia con l'immettere qualche carattere, poi seleziona dal menù a tendina.\n"
+
+#. Default: "Select a set of groups to which members send this page to.\nStart typing some character, then select from the dropdown.\nUsers inside groups in this list will not be revealed to other recipients"
+#: ../browser/sendto.py:35
 msgid "send_to_groups_help_bcc"
 msgstr ""
 "Seleziona un insieme di gruppi ai quali membri inviare questa pagina.\n"
+"Inizia con l'immettere qualche carattere, poi seleziona dal menù a tendina.\n"
 "Gli utenti dentro ai gruppi in questa lista non saranno rivelati agli altri destinatari"
 
-#. Default: "Select a set of site members to send this page to.\nUsers in this list will not be revealed to other recipients"
-#: ../browser/sendto.py:26
+#. Default: "Select a set of site members to send this page to.\nStart typing some character, then select from the dropdown."
+#: ../browser/sendto.py:22
+msgid "send_to_members_help"
+msgstr ""
+"Seleziona un insieme di utenti a cui inviare questa pagina.\n"
+"Inizia con l'immettere qualche carattere, poi seleziona dal menù a tendina.\n"
+
+#. Default: "Select a set of site members to send this page to.\nStart typing some character, then select from the dropdown.\nUsers in this list will not be revealed to other recipients"
+#: ../browser/sendto.py:30
 msgid "send_to_members_help_bcc"
 msgstr ""
 "Seleziona un insieme di utenti del sito a cui inviare questa pagina.\n"
+"Inizia con l'immettere qualche carattere, poi seleziona dal menù a tendina.\n"
 "Gli utenti in questa lista non saranno rivelati agli altri destinatari"
 

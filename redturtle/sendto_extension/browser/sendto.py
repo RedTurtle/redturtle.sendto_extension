@@ -19,16 +19,22 @@ class SendtoExtensionView(BrowserView):
                                        default=u'Enter a list of email addresses to send this page to.\n'
                                                u'Addresses in this list will not be revealed to other recipients')
     i18n_send_to_members = _('Send to site members')
-    i18n_send_to_members_help =  _('Select a set of site members to send this page to')
+    i18n_send_to_members_help =  _('send_to_members_help',
+                                   default=u'Select a set of site members to send this page to.\n'
+                                           u'Start typing some character, then select from the dropdown.')
     i18n_send_to_groups = _('Send to groups')
-    i18n_send_to_groups_help = _('Select a set of groups to which members send this page to')
+    i18n_send_to_groups_help = _('send_to_groups_help',
+                                 u'Select a set of groups to which members send this page to.\n'
+                                 u'Start typing some character, then select from the dropdown.')
     i18n_send_to_members_bcc = _('Send to site members (using BCC)')
     i18n_send_to_members_help_bcc =  _('send_to_members_help_bcc',
                                        default=u'Select a set of site members to send this page to.\n'
+                                               u'Start typing some character, then select from the dropdown.\n'
                                                u'Users in this list will not be revealed to other recipients')
     i18n_send_to_groups_bcc = _('Send to groups (using BCC)')
     i18n_send_to_groups_help_bcc = _('send_to_groups_help_bcc',
                                      default=u'Select a set of groups to which members send this page to.\n'
+                                             u'Start typing some character, then select from the dropdown.\n'
                                              u'Users inside groups in this list will not be revealed to other recipients')
     
     def __init__(self, context, request):
@@ -37,10 +43,9 @@ class SendtoExtensionView(BrowserView):
         request.set('disable_border', 1)
 
     def __call__(self):
-        if self.request.form.get('form.submitted'):
-            if self.send():
-                return self.request.response.redirect(
-                        self.context.absolute_url() + '/@@' + self.__name__)
+        if self.request.form.get('form.submitted') and self.send():
+            return self.request.response.redirect(
+                    self.context.absolute_url() + '/@@' + self.__name__)
         return self.index()
 
     def _members_email(self, members_id):

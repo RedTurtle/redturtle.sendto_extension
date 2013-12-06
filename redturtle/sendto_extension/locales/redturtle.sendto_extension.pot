@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-22 17:22+0000\n"
+"POT-Creation-Date: 2013-12-06 17:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,24 +52,24 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../browser/sendto.py:131
+#: ../browser/sendto.py:142
 msgid "Message sent"
 msgstr ""
 
-#: ../browser/sendto.py:127
+#: ../browser/sendto.py:138
 msgid "No recipients"
 msgstr ""
 
-#: ../browser/sendto.py:124
+#: ../browser/sendto.py:135
 msgid "No sender address provided"
 msgstr ""
 
-#: ../browser/sendto.py:24
-msgid "Select a set of groups to which members send this page to"
+#: ../profiles/default/actions.xml
+msgid "Send link"
 msgstr ""
 
-#: ../browser/sendto.py:22
-msgid "Select a set of site members to send this page to"
+#: ../profiles/default/actions.xml
+msgid "Send link to this page to somebody"
 msgstr ""
 
 #: ../browser/sendto.py:15
@@ -87,11 +87,11 @@ msgstr ""
 msgid "Send to form settings"
 msgstr ""
 
-#: ../browser/sendto.py:23
+#: ../browser/sendto.py:25
 msgid "Send to groups"
 msgstr ""
 
-#: ../browser/sendto.py:29
+#: ../browser/sendto.py:34
 msgid "Send to groups (using BCC)"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Send to site members"
 msgstr ""
 
-#: ../browser/sendto.py:25
+#: ../browser/sendto.py:29
 msgid "Send to site members (using BCC)"
 msgstr ""
 
@@ -156,13 +156,23 @@ msgstr ""
 msgid "message_help"
 msgstr ""
 
-#. Default: "Select a set of groups to which members send this page to.\nUsers inside groups in this list will not be revealed to other recipients"
-#: ../browser/sendto.py:30
+#. Default: "Select a set of groups to which members send this page to.\nStart typing some character, then select from the dropdown."
+#: ../browser/sendto.py:26
+msgid "send_to_groups_help"
+msgstr ""
+
+#. Default: "Select a set of groups to which members send this page to.\nStart typing some character, then select from the dropdown.\nUsers inside groups in this list will not be revealed to other recipients"
+#: ../browser/sendto.py:35
 msgid "send_to_groups_help_bcc"
 msgstr ""
 
-#. Default: "Select a set of site members to send this page to.\nUsers in this list will not be revealed to other recipients"
-#: ../browser/sendto.py:26
+#. Default: "Select a set of site members to send this page to.\nStart typing some character, then select from the dropdown."
+#: ../browser/sendto.py:22
+msgid "send_to_members_help"
+msgstr ""
+
+#. Default: "Select a set of site members to send this page to.\nStart typing some character, then select from the dropdown.\nUsers in this list will not be revealed to other recipients"
+#: ../browser/sendto.py:30
 msgid "send_to_members_help_bcc"
 msgstr ""
 

@@ -3,8 +3,8 @@
 
    <!-- Original Plone permission -->
    <permission
-       id="cmf.UseMailhostServices"
-       title="Use mailhost services"
+       id="plone.AllowSendto"
+       title="Allow sendto"
       />
 
    <permission
