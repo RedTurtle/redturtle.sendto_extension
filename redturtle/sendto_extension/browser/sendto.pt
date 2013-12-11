@@ -72,7 +72,8 @@
 	            <div class="formHelp" i18n:translate="message_help">
 	              Provide a message to be sent to recipient
 	            </div>
-	            <textarea id="message" name="message" rows="10"></textarea>
+	            <textarea id="message" name="message" rows="10"
+				          tal:content="request/message|nothing"></textarea>
 	        </div>
 
             <div class="field onLeft">
