@@ -35,3 +35,15 @@ a.deleteItem {
 	border-bottom: none;
 }
 
+#sendToForm .onLeft {
+	clear: left;
+	float: left;
+	width: 45%;
+}
+
+#sendToForm .onRight {
+	clear: none;
+	float: right;
+	width: 50%;
+}
+

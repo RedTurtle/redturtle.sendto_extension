@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 from zope.component import queryUtility, getMultiAdapter
 from Products.Five import BrowserView
 from plone.registry.interfaces import IRegistry
@@ -8,16 +9,9 @@ from Products.CMFCore.utils import getToolByName
 from redturtle.sendto_extension import _
 from redturtle.sendto_extension.interfaces import ISendtoExtensionSettings
 
-
 class SendtoExtensionView(BrowserView):
     """Service view for the send_to extension"""
 
-    i18n_send_to_address = _('Send to')
-    i18n_send_to_address_help =  _('Enter a list of email addresses to send this page to')
-    i18n_send_to_address_bcc = _('Send to (using BCC)')
-    i18n_send_to_address_help_bcc =  _('i18n_send_to_address_help_bcc',
-                                       default=u'Enter a list of email addresses to send this page to.\n'
-                                               u'Addresses in this list will not be revealed to other recipients')
     i18n_send_to_members = _('Send to site members')
     i18n_send_to_members_help =  _('send_to_members_help',
                                    default=u'Select a set of site members to send this page to.\n'
@@ -74,11 +68,20 @@ class SendtoExtensionView(BrowserView):
 
     def send(self):
         """Send e-mail to all recipients, loading e-mail from member is needed and doing security check"""
+        # first of all: captcha protection if needed
+        if self.capcha_enabled():
+            if not self.context.restrictedTraverse('@@captcha').verify():
+                ptool = getToolByName(self.context, 'plone_utils') 
+                ptool.addPortalMessage(_('Captcha protection code is wrong. Please retry'), type="error")
+                return False
+        
         form = self.request.form
         sender = form.get('send_from_address', None)
         message = form.get('message', '')
-        send_to_address = form.get('send_to_address', [])
-        send_to_address_bcc = form.get('send_to_address_bcc', [])
+        send_to_address = form.get('send_to_address', '').strip()
+        send_to_address = re.findall(r"[\w@.-_']+", send_to_address)
+        send_to_address_bcc = form.get('send_to_address_bcc', '').strip()
+        send_to_address_bcc = re.findall(r"[\w@.-_']+", send_to_address_bcc)
         send_to_members = form.get('send_to_members', [])
         send_to_members_bcc = form.get('send_to_members_bcc', [])
         send_to_groups = form.get('send_to_groups', [])
@@ -141,3 +144,12 @@ class SendtoExtensionView(BrowserView):
                              mbcc=bcc, subtype='plain', charset='utf-8')
         ptool.addPortalMessage(_('Message sent'))
         return True
+
+    def capcha_enabled(self):
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        if portal_state.anonymous():
+            registry = queryUtility(IRegistry)
+            settings = registry.forInterface(ISendtoExtensionSettings, check=False)
+            if settings.captcha=='collective.recaptcha':
+                return True
+        return False

@@ -63,8 +63,19 @@ class ISendtoExtensionSettings(Interface):
                                   u"${title} for the title of the document, "
                                   u"${sender} for the address of the sender, "
                                   u"${comment} for the comment from the sender."
-                                  ),
+                          ),
             defaultFactory=translate_default_email_body,
             required=True,
     )
 
+    captcha = schema.Choice(
+            title=_(u"Captcha protection for anonymous users"),
+            description=_('captcha_help',
+                          default=u"Select if you want a captcha protection when the send form is used by anonymous "
+                                  u"visitors. This is HIGHLY RECOMMENDED, expecially when sending to multiple recipients.\n"
+                                  u"The only supported captcha right now requires you to install (and configure) "
+                                  u"collective.recaptcha."
+                          ),
+            required=True,
+            vocabulary="redturtle.sendto_extension.vocabularies.captcha"
+    )
