@@ -13,6 +13,12 @@
       <role name="Site Administrator"/>
       <role name="Member"/>
     </permission>
+    <permission name="SendTo Extension: send to multiple recipients"
+                acquire="False">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+      <role name="Member"/>
+    </permission>
     <permission name="Allow sendto"
                 acquire="False">
       <role name="Manager"/>

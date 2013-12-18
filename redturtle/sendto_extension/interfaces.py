@@ -72,7 +72,8 @@ class ISendtoExtensionSettings(Interface):
             title=_(u"Captcha protection for anonymous users"),
             description=_('captcha_help',
                           default=u"Select if you want a captcha protection when the send form is used by anonymous "
-                                  u"visitors. This is HIGHLY RECOMMENDED, expecially when sending to multiple recipients.\n"
+                                  u"visitors. This is HIGHLY RECOMMENDED, expecially when send to multiple recipients "
+                                  u"is enabled.\n"
                                   u"The only supported captcha right now requires you to install (and configure) "
                                   u"collective.recaptcha."
                           ),

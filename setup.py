@@ -29,6 +29,7 @@ setup(name='redturtle.sendto_extension',
           'setuptools',
           'collective.js.jqueryui',
           'rt.zptformfield',
+          'collective.autopermission',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

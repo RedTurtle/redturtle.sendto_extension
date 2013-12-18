@@ -18,6 +18,11 @@
       />
 
    <permission
+       id="redturtle.sendto_extension.permission.SendToMultipleRecipients"
+       title="SendTo Extension: send to multiple recipients"
+      />
+
+   <permission
        id="redturtle.sendto_extension.permission.Settings"
        title="Plone Site Setup: Send to form"
       />

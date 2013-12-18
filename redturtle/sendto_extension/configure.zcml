@@ -13,6 +13,7 @@
 
    <include package="collective.js.jqueryui" />
    <include package="rt.zptformfield" />
+   <include package="collective.autopermission" />
    <include package=".browser" />
 
    <cmf:registerDirectory

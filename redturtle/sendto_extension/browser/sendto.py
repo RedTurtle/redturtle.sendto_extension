@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+from AccessControl import getSecurityManager, Unauthorized
 from zope.component import queryUtility, getMultiAdapter
 from Products.Five import BrowserView
 from plone.registry.interfaces import IRegistry
@@ -43,6 +44,8 @@ class SendtoExtensionView(BrowserView):
         return self.index()
 
     def _members_email(self, members_id):
+        if members_id:
+            self.can_query_members(raiseError=True)
         acl_users = getToolByName(self.context, 'acl_users')
         emails = []
         for member_id in members_id:
@@ -54,6 +57,8 @@ class SendtoExtensionView(BrowserView):
         return emails
 
     def _groups_email(self, groups_id):
+        if groups_id:
+            self.can_query_groups(raiseError=True)
         acl_users = getToolByName(self.context, 'acl_users')
         emails = []
         for group_id in groups_id:
@@ -78,10 +83,16 @@ class SendtoExtensionView(BrowserView):
         form = self.request.form
         sender = form.get('send_from_address', None)
         message = form.get('message', '')
-        send_to_address = form.get('send_to_address', '').strip()
-        send_to_address = re.findall(r"[\w@.-_']+", send_to_address)
-        send_to_address_bcc = form.get('send_to_address_bcc', '').strip()
-        send_to_address_bcc = re.findall(r"[\w@.-_']+", send_to_address_bcc)
+        if self.can_send_to_multiple_recipients():
+            send_to_address = form.get('send_to_address', '').strip()
+            send_to_address = re.findall(r"[\w@.-_']+", send_to_address)
+            send_to_address_bcc = form.get('send_to_address_bcc', '').strip()
+            send_to_address_bcc = re.findall(r"[\w@.-_']+", send_to_address_bcc)
+        else:
+            # whatever we get, it must be a single email address
+            send_to_address = [send_to_address]
+            send_to_address_bcc = [send_to_address_bcc]
+
         send_to_members = form.get('send_to_members', [])
         send_to_members_bcc = form.get('send_to_members_bcc', [])
         send_to_groups = form.get('send_to_groups', [])
@@ -97,7 +108,7 @@ class SendtoExtensionView(BrowserView):
         members_email = self._members_email(send_to_members)
         members_email_bcc = self._members_email(send_to_members_bcc)
         groups_email = self._groups_email(send_to_groups)
-        groups_email_bcc = self._members_email(send_to_groups_bcc)
+        groups_email_bcc = self._groups_email(send_to_groups_bcc)
         if cc_me:
             member = getToolByName(self.context, 'portal_membership').getAuthenticatedMember()
             members_email.append(member.getProperty('email'))
@@ -153,3 +164,52 @@ class SendtoExtensionView(BrowserView):
             if settings.captcha=='collective.recaptcha':
                 return True
         return False
+
+    def load_users_from_req(self, name):
+        """Get user ids from request and load users data"""
+        acl_users = getToolByName(self.context, 'acl_users')
+        user_ids = self.request.get(name, [])
+        results = []
+        for user_id in user_ids:
+            user = acl_users.getUserById(user_id)
+            if user:
+                results.append({'title': user.getProperty('fullname') or user_id, 'value': user_id})
+        return results
+
+    def load_groups_from_req(self, name):
+        """Get group ids from request and load groups data"""
+        acl_users = getToolByName(self.context, 'acl_users')
+        groups_ids = self.request.get(name, [])
+        results = []
+        for group_id in groups_ids:
+            group = acl_users.getGroupById(group_id)
+            if group:
+                results.append({'title': group.getProperty('title') or group_id, 'value': group_id})
+        return results
+
+    def can_query_members(self, raiseError=False):
+        sm = getSecurityManager()
+        can_do = sm.checkPermission('SendTo Extension: query site members', self.context)
+        if not raiseError:
+            return can_do
+        if not can_do:
+            raise Unauthorized("You can't query site members")
+        return True
+
+    def can_query_groups(self, raiseError=False):
+        sm = getSecurityManager()
+        can_do = sm.checkPermission('SendTo Extension: query groups', self.context)
+        if not raiseError:
+            return can_do
+        if not can_do:
+            raise Unauthorized("You can't query groups")
+        return True
+
+    def can_send_to_multiple_recipients(self, raiseError=False):
+        sm = getSecurityManager()
+        can_do = sm.checkPermission('SendTo Extension: send to multiple recipients', self.context)
+        if not raiseError:
+            return can_do
+        if not can_do:
+            raise Unauthorized("You can't send to  multiple recipients")
+        return True
