@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.0.0 (unreleased)
-------------------
+2.0.0b1 (2013-12-18)
+--------------------
 
 Plone 4.3 compatibility and public release
 

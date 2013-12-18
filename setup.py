@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0.0.dev0'
+version = '2.0.0b1'
 
 setup(name='redturtle.sendto_extension',
       version=version,
@@ -19,7 +19,7 @@ setup(name='redturtle.sendto_extension',
       keywords='plone plonegov sendto mail users groups',
       author='Redturtle Technology',
       author_email='sviluppoplone@redturtle.it',
-      url='https://code.redturtle.it/svn/redturtle/redturtle.sendto_extension/',
+      url='http://plone.org/products/redturtle.sendto_extension',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['redturtle'],

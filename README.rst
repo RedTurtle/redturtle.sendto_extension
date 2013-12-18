@@ -33,7 +33,6 @@ After installation the "Send to" action will show you a totally new interface.
    :align: right
    :target: http://blog.redturtle.it/pypi-images/redturtle.sendto_extension/redturtle.sendto_extension-2.0.0a1-01.png
 
-
 Add me to recipients
 --------------------
 

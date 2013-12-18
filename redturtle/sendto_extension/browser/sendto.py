@@ -82,6 +82,9 @@ class SendtoExtensionView(BrowserView):
         
         form = self.request.form
         sender = form.get('send_from_address', None)
+        if not sender and not self.can_set_sender_mail():
+            sender = getToolByName(self.context, 'portal_membership').getAuthenticatedMember().getProperty('email')
+
         message = form.get('message', '')
         if self.can_send_to_multiple_recipients():
             send_to_address = form.get('send_to_address', '').strip()
@@ -151,6 +154,12 @@ class SendtoExtensionView(BrowserView):
         if not to and not bcc:
              ptool.addPortalMessage(_('No recipients'), type="error")
              return False
+        
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(ISendtoExtensionSettings, check=False)
+        if not settings.use_mail_for_sender:
+            sender = getToolByName(self.context, 'portal_url').getPortalObject().getProperty('email_from_address')
+        
         mail_host.secureSend(body, to, sender, subject=subject,
                              mbcc=bcc, subtype='plain', charset='utf-8')
         ptool.addPortalMessage(_('Message sent'))
@@ -213,3 +222,14 @@ class SendtoExtensionView(BrowserView):
         if not can_do:
             raise Unauthorized("You can't send to  multiple recipients")
         return True
+
+    def can_set_sender_mail(self):
+        portal_state = getMultiAdapter((self.context, self.request), name="plone_portal_state")
+        if portal_state.anonymous():
+            return True
+        member = portal_state.member()
+        if not member.getProperty('email'):
+            return True
+        registry = queryUtility(IRegistry)
+        settings = registry.forInterface(ISendtoExtensionSettings, check=False)
+        return not settings.force_member_email

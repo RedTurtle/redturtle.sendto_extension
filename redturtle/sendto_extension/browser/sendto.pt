@@ -41,7 +41,7 @@
         <fieldset id="fieldset-base">
             <legend i18n:translate="" id="fieldsetlegend-base">Sending information</legend>
 
-            <div class="field">
+            <div class="field" tal:condition="view/can_set_sender_mail">
                 <label for="send_from_address" i18n:domain="plone" i18n:translate="label_send_from">From</label>
                 <span class="fieldRequired" title="Required"
                       i18n:domain="plone" 

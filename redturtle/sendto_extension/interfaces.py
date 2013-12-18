@@ -68,6 +68,24 @@ class ISendtoExtensionSettings(Interface):
             required=True,
     )
 
+    force_member_email = schema.Bool(
+            title=_(u"Force sender email from current user"),
+            description=_('force_member_email_help',
+                          default=u"If checked and the send form is used by an authenticated member "
+                                  u"automatically take the user email address (and do not make this editable)"
+                                  ),
+            default=True,
+    )
+
+    use_mail_for_sender = schema.Bool(
+            title=_(u"Use provided address as sender for the message"),
+            description=_('use_mail_for_sender_help',
+                          default=u"If checked the mail message will use the sender address. "
+                                  u"If not, the default mail configuration of the site is used."
+                                  ),
+            default=False,
+    )
+
     captcha = schema.Choice(
             title=_(u"Captcha protection for anonymous users"),
             description=_('captcha_help',
