@@ -5,7 +5,7 @@ Changelog
 --------------------
 
 - Fixed critical bug the anonymous users try to use the form [keul]
-
+- Fixed missing and wrong translations [keul]
 
 2.0.0b1 (2013-12-18)
 --------------------

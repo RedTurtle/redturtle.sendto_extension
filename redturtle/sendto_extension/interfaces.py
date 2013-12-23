@@ -69,9 +69,9 @@ class ISendtoExtensionSettings(Interface):
     )
 
     force_member_email = schema.Bool(
-            title=_(u"Force sender email from current user"),
+            title=_(u"Take sender address from the user"),
             description=_('force_member_email_help',
-                          default=u"If checked and the send form is used by an authenticated member "
+                          default=u"If checked, and the send form is used by an authenticated member, "
                                   u"automatically take the user email address (and do not make this editable)"
                                   ),
             default=True,
