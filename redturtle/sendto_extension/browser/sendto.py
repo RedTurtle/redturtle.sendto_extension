@@ -86,10 +86,10 @@ class SendtoExtensionView(BrowserView):
             sender = getToolByName(self.context, 'portal_membership').getAuthenticatedMember().getProperty('email')
 
         message = form.get('message', '')
+        send_to_address = form.get('send_to_address', '').strip()
+        send_to_address_bcc = form.get('send_to_address_bcc', '').strip()
         if self.can_send_to_multiple_recipients():
-            send_to_address = form.get('send_to_address', '').strip()
             send_to_address = re.findall(r"[\w@.-_']+", send_to_address)
-            send_to_address_bcc = form.get('send_to_address_bcc', '').strip()
             send_to_address_bcc = re.findall(r"[\w@.-_']+", send_to_address_bcc)
         else:
             # whatever we get, it must be a single email address
