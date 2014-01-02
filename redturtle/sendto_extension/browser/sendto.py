@@ -2,13 +2,15 @@
 
 import re
 from AccessControl import getSecurityManager, Unauthorized
-from zope.component import queryUtility, getMultiAdapter
-from Products.Five import BrowserView
-from plone.registry.interfaces import IRegistry
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.MailHost.interfaces import IMailHost
+from plone.registry.interfaces import IRegistry
 from redturtle.sendto_extension import _
 from redturtle.sendto_extension.interfaces import ISendtoExtensionSettings
+from zope.component import queryUtility, getMultiAdapter
+
 
 class SendtoExtensionView(BrowserView):
     """Service view for the send_to extension"""
@@ -144,7 +146,7 @@ class SendtoExtensionView(BrowserView):
         body = settings.email_body
         subject = self._repl_interpolation(subject, sender, '')
         body = self._repl_interpolation(body, sender, message)
-        mail_host = getToolByName(self.context, 'MailHost')
+        mail_host = queryUtility(IMailHost)
         to = [x for x in to if mail_host.validateSingleEmailAddress(x) and x not in bcc]
         bcc = [x for x in bcc if mail_host.validateSingleEmailAddress(x)]
         ptool = getToolByName(self.context, 'plone_utils')

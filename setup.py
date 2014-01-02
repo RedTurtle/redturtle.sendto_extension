@@ -3,6 +3,8 @@ import os
 
 version = '2.0.0b2.dev0'
 
+tests_require = ['plone.app.testing', 'pyquery', 'collective.recaptcha', ]
+
 setup(name='redturtle.sendto_extension',
       version=version,
       description='An extension for the "Send this" Plone document action',
@@ -25,6 +27,8 @@ setup(name='redturtle.sendto_extension',
       namespace_packages=['redturtle'],
       include_package_data=True,
       zip_safe=False,
+      tests_require=tests_require,
+      extras_require=dict(test=tests_require),
       install_requires=[
           'setuptools',
           'collective.js.jqueryui',
