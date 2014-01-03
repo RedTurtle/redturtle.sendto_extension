@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.0.0b2 (unreleased)
+2.0.0b2 (2014-01-03)
 --------------------
 
 - Fixed critical bug the anonymous users try to use the form [keul]
