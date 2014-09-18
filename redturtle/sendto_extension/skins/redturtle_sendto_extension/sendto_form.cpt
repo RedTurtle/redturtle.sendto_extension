@@ -22,7 +22,7 @@
                      findAllGroups python:'form.button.findAllGroups' in request.keys();
 					 singleSearch python:'form.button.Search' in request.keys() or ('form.button.findAllGroups' not in request.keys() and 'form.button.Search' not in request.keys());
                      searchstring_user python:test(findAllUsers,'',searchstring_user);
-                     portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or []; 
+                     portal_users python:(searchstring_user or findAllUsers) and context.searchAdvancedForMembers(searchstring_user) or [];
                      searchstring_group request/searchstring_group | nothing;
                      searchstring_group python:test(findAllGroups,'',searchstring_group);
                      groups python:test(not site_properties.many_users and not singleSearch, sendto_view.listGroups(), searchstring_group and here.extension_prefs_user_group_search(searchstring=searchstring_group, restrict='groups') or None);">
@@ -91,7 +91,7 @@
 
 		    </th>
 		</tr>
-			
+
 		<tal:block tal:condition="portal_users" >
 		  <tr>
 		    <th colspan="2" i18n:translate="listingheader_user_name">User name</th>
@@ -215,18 +215,18 @@
 
                     <td class="listingCheckbox">
                         <input type="checkbox"
-                               class="noborder" 
+                               class="noborder"
                                name="groups_id:list"
                                tal:attributes="value this_group/getGroupName;
-                               checked python:test(selectedgroups and this_group.getGroupName() in selectedgroups,True,False);" />                           
+                               checked python:test(selectedgroups and this_group.getGroupName() in selectedgroups,True,False);" />
                     </td>
 
 
                     <td>
                         <tal:block replace="structure portal/group.gif"/>&nbsp;
                         <tal:group tal:replace="this_group/getGroupName" /> (<span tal:condition="this_group/getGroupTitleOrName" tal:replace="this_group/getGroupTitleOrName"/>)
-                        
-                        
+
+
 						<dl class="collapsible inline collapsedOnLoad"
                             tal:define="mlist python:sendto_view.getMemberOfGroup(this_group.getId())"
                             tal:condition="mlist">
@@ -235,7 +235,7 @@
                                 <span tal:replace="python: memberinfo[0]+memberinfo[1]" />
                             </dd>
                         </dl>
-						
+
                     </td>
 
             </tr>
@@ -341,6 +341,20 @@
 		  <label for="addme" i18n:translate="">Aggiungimi in CC</label>
           <div class="formHelp" i18n:translate="help_sendto_addme">
               Aggiunge la propria email in CC, ricevendo cos&igrave; il messaggio inviato.
+          </div>
+
+          <div class="field captcha" tal:condition="sendto_view/capcha_enabled"
+                                     tal:define="error errors/recaptcha_response_field|nothing;"
+                                     tal:attributes="class python:test(error, 'field error', 'field')">
+
+              <label for="recaptcha_response_field">Protezione dallo spam</label>
+              <div class="formHelp">
+                Inserisci il codice di protezione captcha qui sotto, per essere sicuri che tu sia un umano.
+              </div>
+
+              <div tal:content="error">Validation error output</div>
+
+              <tal:block tal:replace="structure context/@@captcha/image_tag"/>
           </div>
 
           <div class="formControls">

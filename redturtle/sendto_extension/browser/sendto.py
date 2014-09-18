@@ -3,12 +3,13 @@
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+from zope.component import getMultiAdapter
 
 from plone.memoize.instance import memoize
 
 class SendtoExtensionView(BrowserView):
     """Service view for the send_to extension"""
-    
+
     def listGroups(self):
         gtool = getToolByName(self.context, 'portal_groups')
         return gtool.listGroups()
@@ -42,4 +43,18 @@ class SendtoExtensionView(BrowserView):
         except AttributeError:
             addme_to_cc_default = False
         return (addme_to_cc_default and 'checked') or False
+
+    def capcha_enabled(self):
+        portal_state = getMultiAdapter((self.context, self.request), name=u'plone_portal_state')
+        if portal_state.anonymous():
+            # have repactha?
+            portal = portal_state.portal()
+            recaptcha = portal.restrictedTraverse('@@captcha/image_tag', None)
+            if recaptcha:
+                try:
+                    recaptcha()
+                    return True
+                except ValueError:
+                    return False
+        return False
 

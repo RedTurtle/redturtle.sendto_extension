@@ -25,6 +25,8 @@ setup(name='redturtle.sendto_extension',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.recaptcha',
+          'plone.app.registry',
       ],
       entry_points="""
       [z3c.autoinclude.plugin]

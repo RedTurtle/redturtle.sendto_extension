@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.4.0 (unreleased)
+------------------
+
+* Captcha protection [fdelia]
+
 1.3.3 (2010-08-17)
 ------------------
 

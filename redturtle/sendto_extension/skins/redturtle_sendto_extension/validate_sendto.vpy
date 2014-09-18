@@ -5,10 +5,19 @@
 ##bind script=script
 ##bind state=state
 ##bind subpath=traverse_subpath
-##parameters=send_to_address='',send_from_address='', users_id=None, groups_id=None
+##parameters=send_to_address='',send_from_address='', users_id=None, groups_id=None, recaptcha_response_field=''
 ##title=validates the email adresses
 ##
 plone_utils=context.plone_utils
+
+if context.restrictedTraverse('@@plone_portal_state').anonymous():
+    recaptcha_verify = context.restrictedTraverse('@@captcha/verify', None)
+    if recaptcha_verify:
+        try:
+            if not recaptcha_verify():
+                state.setError('recaptcha_response_field', 'Il codice di protezione captcha è errato. Prego riprova')
+        except ValueError:
+            pass
 
 if not send_to_address and not users_id and not groups_id:
     state.setError('send_to_address', 'Please submit an email address.', 'email_required')
